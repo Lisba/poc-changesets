@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@poc-changesets/core": "*"
+    "@poc-changesets/core": "0.0.1"
   },
   "devDependencies": {
     "@types/react-dom": "19.1.3"
