@@ -4,11 +4,11 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "build": "rm -rf build 2> /dev/null && tsc && node ./scripts/post-build.js",
+    "build": "rm -rf dist 2> /dev/null && vite build && node ./scripts/post-build.js",
     "dev": "vite",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@poc-changesets/core": "*"
+    "@types/react-dom": "19.1.3"
   }
 } 
