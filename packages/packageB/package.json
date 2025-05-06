@@ -1,6 +1,6 @@
 {
   "name": "@poc-changesets/package-b",
-  "version": "0.0.1",
+  "version": "1.1.0",
   "main": "index.js",
   "license": "ISC",
   "scripts": {
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@poc-changesets/core": "0.0.1"
+    "@poc-changesets/core": "1.1.0"
   },
   "devDependencies": {
     "@types/react-dom": "19.1.3"

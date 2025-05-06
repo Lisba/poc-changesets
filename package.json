@@ -1,6 +1,6 @@
 {
   "name": "poc-changesets",
-  "version": "0.0.1",
+  "version": "1.1.0",
   "main": "index.js",
   "license": "ISC",
   "workspaces": [
