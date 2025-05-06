@@ -1,0 +1,14 @@
+{
+  "name": "@poc-changesets/package-b",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "build": "rm -rf build 2> /dev/null && tsc && node ./scripts/post-build.js",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@poc-changesets/core": "*"
+  }
+} 

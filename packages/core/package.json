@@ -1,0 +1,21 @@
+{
+  "name": "@poc-changesets/core",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist 2> /dev/null && tsup src/index.tsx --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react"
+  },
+  "devDependencies": {
+    "tsup": "6.7.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0"
+  }
+}
