@@ -8,6 +8,7 @@ export const Button: React.FC<ButtonProps> = ({ children, onClick, styles }) => 
   console.log('children: ', children);
   console.log('styles: ', styles);
   console.log('onClick: ', onClick);
+  console.log('children2: ', children);
   
   return (
     <button
