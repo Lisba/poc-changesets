@@ -1,7 +1,11 @@
 name: Prepare Release
 
 on:
-  workflow_dispatch:      # Solo ejecución manual
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   prepare-release:
