@@ -1,0 +1,56 @@
+name: Release Workflow
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create release branch
+        run: |
+          RELEASE_VERSION=${{ github.event.release.tag_name }}
+          git switch -c release/${RELEASE_VERSION}
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: Version packages
+        run: npm run version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build packages
+        run: npm run build
+
+      - name: Commit version changes
+        run: |
+          git add -A
+          git commit -m "chore: version packages updated for ${GITHUB_REF#refs/tags/}"
+          git push origin release/${GITHUB_REF#refs/tags/}
+
+      - name: Merge to main and tag
+        run: |
+          git switch main
+          git merge release/${GITHUB_REF#refs/tags/} --no-ff -m "chore: merge release/${GITHUB_REF#refs/tags/} to main"
+          # Crear el tag anotado en el commit de merge
+          git tag -a ${GITHUB_REF#refs/tags/} -m "Release ${GITHUB_REF#refs/tags/}"
+          # Subir el merge y el tag
+          git push origin HEAD
+          git push origin ${GITHUB_REF#refs/tags/}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
