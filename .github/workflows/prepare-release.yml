@@ -24,27 +24,23 @@ jobs:
       - name: Get next version from changesets
         id: changesets
         run: |
-          # Run changeset status and capture the output
           CHANGESET_OUTPUT=$(npx changeset status --verbose)
           
-          # Check if there are pending changesets
           if echo "$CHANGESET_OUTPUT" | grep -q "NO packages"; then
             echo "No pending changesets to generate a new version"
             exit 1
           fi
           
-          # Extract all versions and get the highest
           HIGHEST_VERSION=$(echo "$CHANGESET_OUTPUT" | grep -o "[0-9]\+\.[0-9]\+\.[0-9]\+" | sort -V | tail -n1)
           
           if [ -z "$HIGHEST_VERSION" ]; then
             echo "Could not determine the version"
             exit 1
           fi
-          
+            
           echo "Highest version proposed by changesets: $HIGHEST_VERSION"
           echo "new_version=$HIGHEST_VERSION" >> $GITHUB_OUTPUT
           
-          # Show summary of changes
           echo "Summary of changes:"
           echo "$CHANGESET_OUTPUT"
 
@@ -53,7 +49,6 @@ jobs:
           VERSION=${{ steps.changesets.outputs.new_version }}
           BRANCH_NAME="release/v$VERSION"
           
-          # Create and push the branch
           git switch -c $BRANCH_NAME
           git push origin HEAD
           
