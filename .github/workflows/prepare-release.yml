@@ -26,7 +26,8 @@ jobs:
         run: |
           CHANGESET_OUTPUT=$(npx changeset status --verbose)
           
-          if echo "$CHANGESET_OUTPUT" | grep -q "NO packages"; then
+          # Verificar si hay cambios en patch, minor o major
+          if ! echo "$CHANGESET_OUTPUT" | grep -q "Packages to be bumped at"; then
             echo "No pending changesets to generate a new version"
             exit 1
           fi
@@ -37,7 +38,7 @@ jobs:
             echo "Could not determine the version"
             exit 1
           fi
-            
+          
           echo "Highest version proposed by changesets: $HIGHEST_VERSION"
           echo "new_version=$HIGHEST_VERSION" >> $GITHUB_OUTPUT
           
