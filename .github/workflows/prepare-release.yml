@@ -51,7 +51,9 @@ jobs:
           
           echo "Highest version proposed by changesets: $HIGHEST_VERSION"
           echo "new_version=$HIGHEST_VERSION" >> $GITHUB_OUTPUT
+          echo "changeset_output<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGESET_OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create release branch
         run: |
