@@ -51,9 +51,7 @@ jobs:
           
           echo "Highest version proposed by changesets: $HIGHEST_VERSION"
           echo "new_version=$HIGHEST_VERSION" >> $GITHUB_OUTPUT
-          
-          echo "Summary of changes:"
-          echo "$CHANGESET_OUTPUT"
+          echo "$CHANGESET_OUTPUT" >> $GITHUB_OUTPUT
 
       - name: Create release branch
         run: |
@@ -87,6 +85,6 @@ jobs:
               tag_name: releaseName,
               target_commitish: `release/${releaseName}`,
               name: `Release ${releaseName}`,
-              body: `## Changes in this Release\n\n$(npx changeset status --verbose)\n\n## Next Steps\n1. Review the changes\n2. Publish the release\n3. The release workflow will handle publishing`,
+              body: `## Changes in this Release\n\n${{ steps.changesets.outputs.changeset_output }}\n\n## Next Steps\n1. Review the changes\n2. Publish the release\n3. The release workflow will handle publishing`,
               draft: true
             });
