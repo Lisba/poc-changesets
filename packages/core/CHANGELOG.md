@@ -1,5 +1,11 @@
 # @poc-changesets/core
 
+## 1.4.1
+
+### Patch Changes
+
+- 833ff02: Testing purpose
+
 ## 1.4.0
 
 ### Minor Changes
