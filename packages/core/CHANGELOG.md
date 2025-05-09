@@ -1,5 +1,11 @@
 # @poc-changesets/core
 
+## 1.4.0
+
+### Minor Changes
+
+- 6873a40: Add log featUno
+
 ## 1.2.0
 
 ### Minor Changes
