@@ -34,8 +34,7 @@ jobs:
 
       - name: Switch to release branch
         run: |
-          VERSION=${{ github.event.release.tag_name }}
-          BRANCH_NAME="release/$VERSION"
+          BRANCH_NAME="release/${{ github.event.release.tag_name }}"
           git switch $BRANCH_NAME
 
       - name: Bump version
@@ -47,16 +46,16 @@ jobs:
       - name: Create version commit
         run: |
           git add -A
-          git commit -m "chore: version packages updated for $VERSION"
+          git commit -m "chore: version packages updated for ${{ github.event.release.tag_name }}"
           git push -u origin HEAD
 
       - name: Merge to main
         run: |
           git checkout main
-          git merge --no-ff $BRANCH_NAME -m "chore: merge release/$VERSION into main"
+          git merge --no-ff release/${{ github.event.release.tag_name }} -m "chore: merge release/${{ github.event.release.tag_name }} into main"
           git push -u origin main
 
       - name: Create tag
         run: |
-          git tag -a "$VERSION" -m "Release $VERSION"
+          git tag -a "${{ github.event.release.tag_name }}" -m "Release ${{ github.event.release.tag_name }}"
           git push --tags

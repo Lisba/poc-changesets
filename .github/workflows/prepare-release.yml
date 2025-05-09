@@ -55,9 +55,9 @@ jobs:
           BRANCH_NAME="release/v$VERSION"
           
           git switch -c $BRANCH_NAME
-          git push origin HEAD
+          git push -u origin HEAD
           
           echo "Branch $BRANCH_NAME created and pushed to GitHub."
           echo "Use the tag v$VERSION to create the next release in GitHub."
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
