@@ -36,12 +36,11 @@ jobs:
         run: |
           CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           if [[ "$CURRENT_BRANCH" == "main" ]]; then
-            BASE_REF="main"
+            CHANGESET_OUTPUT=$(npx changeset status --verbose | sed 's/\x1b\[[0-9;]*m//g' | sed 's/🦋  //g' | grep -v "\.changeset/.*\.md")
           else
             BASE_REF=$(git describe --tags --abbrev=0)
+            CHANGESET_OUTPUT=$(npx changeset status --verbose --since $BASE_REF | sed 's/\x1b\[[0-9;]*m//g' | sed 's/🦋  //g' | grep -v "\.changeset/.*\.md")
           fi
-          
-          CHANGESET_OUTPUT=$(npx changeset status --verbose --since $BASE_REF | sed 's/\x1b\[[0-9;]*m//g' | sed 's/🦋  //g' | grep -v "\.changeset/.*\.md")
           
           if ! echo "$CHANGESET_OUTPUT" | grep -q "Packages to be bumped at"; then
             echo "No pending changesets to generate a new version"
