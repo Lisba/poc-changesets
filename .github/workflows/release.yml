@@ -37,17 +37,12 @@ jobs:
           BRANCH_NAME="release/${{ github.event.release.tag_name }}"
           git switch $BRANCH_NAME
 
-      - name: Bump version
-        run: npm run version
-
       - name: Build packages
         run: npm run build
-
-      - name: Create version commit
+        
+      - name: Simulate CodeArtifact publish
         run: |
-          git add -A
-          git commit -m "chore: version packages updated for ${{ github.event.release.tag_name }}"
-          git push -u origin HEAD
+          echo "Simulating publish to CodeArtifact..."
 
       - name: Merge to main
         run: |

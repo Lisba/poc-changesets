@@ -61,3 +61,12 @@ jobs:
           echo "Use the tag v$VERSION to create the next release in GitHub."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump version
+        run: npm run version
+  
+      - name: Create version commit
+        run: |
+          git add -A
+          git commit -m "chore: version packages updated for ${{ github.event.release.tag_name }}"
+          git push -u origin HEAD
