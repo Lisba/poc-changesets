@@ -65,8 +65,8 @@ jobs:
       - name: Bump version
         run: npm run version
   
-      - name: Create version commit
+      - name: Commit version bump
         run: |
           git add -A
-          git commit -m "chore: version packages updated for ${{ github.event.release.tag_name }}"
+          git commit -m "chore: version packages updated for ${{ steps.changesets.outputs.new_version }}"
           git push -u origin HEAD

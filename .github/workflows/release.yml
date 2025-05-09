@@ -33,30 +33,21 @@ jobs:
           git config --global user.email "github-actions@github.com"
 
       - name: Switch to release branch
+        id: branch
         run: |
           BRANCH_NAME="release/${{ github.event.release.tag_name }}"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           git switch $BRANCH_NAME
 
       - name: Build packages
         run: npm run build
         
-      - name: Simulate CodeArtifact publish
+      - name: Publish to CodeArtifact
         run: |
-          echo "Simulating publish to CodeArtifact..."
+          echo "Simulating publishing to CodeArtifact..."
 
-      - name: Merge to main
+      - name: Merge release branch to main
         run: |
           git checkout main
-          git merge --no-ff release/${{ github.event.release.tag_name }} -m "chore: merge release/${{ github.event.release.tag_name }} into main"
+          git merge --no-ff ${{ steps.branch.outputs.branch_name }} -m "chore: merge ${{ steps.branch.outputs.branch_name }} into main"
           git push -u origin main
-
-      - name: Create tag if not exists
-        run: |
-          TAG_NAME="${{ github.event.release.tag_name }}"
-          if ! git rev-parse --verify --quiet "refs/tags/$TAG_NAME" >/dev/null; then
-            echo "Creating tag $TAG_NAME"
-            git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
-            git push --tags
-          else
-            echo "Tag $TAG_NAME already exists, skipping creation"
-          fi
