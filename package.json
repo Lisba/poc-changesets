@@ -15,7 +15,8 @@
     "turbo": "turbo",
     "build": "rm -rf build 2> /dev/null && turbo run build --no-cache",
     "changeset": "changeset",
-    "version": "changeset version",
+    "changeset:version": "changeset version",
+    "changeset:status": "changeset status",
     "publish": "turbo run build --filter=@poc-changesets/* && changeset publish"
   },
   "dependencies": {

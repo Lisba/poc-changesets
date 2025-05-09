@@ -34,9 +34,8 @@ jobs:
       - name: Get next version from changesets
         id: changesets
         run: |
-          CHANGESET_OUTPUT=$(npx changeset status --verbose | sed 's/\x1b\[[0-9;]*m//g' | grep -v "\.changeset/.*\.md")
+          CHANGESET_OUTPUT=$(npx changeset status --verbose | sed 's/\x1b\[[0-9;]*m//g' | sed 's/🦋  //g' | grep -v "\.changeset/.*\.md")
           
-          # Verificar si hay cambios en patch, minor o major
           if ! echo "$CHANGESET_OUTPUT" | grep -q "Packages to be bumped at"; then
             echo "No pending changesets to generate a new version"
             exit 1
@@ -51,9 +50,11 @@ jobs:
           
           echo "Highest version proposed by changesets: $HIGHEST_VERSION"
           echo "new_version=$HIGHEST_VERSION" >> $GITHUB_OUTPUT
-          echo "changeset_output<<EOF" >> $GITHUB_OUTPUT
-          echo "$CHANGESET_OUTPUT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "changeset_output<<EOF"
+            echo "$CHANGESET_OUTPUT"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
 
       - name: Create release branch
         run: |
@@ -67,7 +68,7 @@ jobs:
           echo "Use the tag v$VERSION to create the next release in GitHub."
 
       - name: Bump version
-        run: npm run version
+        run: npm run changeset:version
 
       - name: Commit version bump
         run: |
