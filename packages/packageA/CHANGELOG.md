@@ -1,5 +1,12 @@
 # @poc-changesets/package-a
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies [9552651]
+  - @poc-changesets/core@1.4.2
+
 ## 1.1.3
 
 ### Patch Changes

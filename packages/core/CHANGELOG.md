@@ -1,5 +1,11 @@
 # @poc-changesets/core
 
+## 1.4.2
+
+### Patch Changes
+
+- 9552651: Another testing example
+
 ## 1.4.1
 
 ### Patch Changes
