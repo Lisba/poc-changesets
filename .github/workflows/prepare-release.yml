@@ -72,7 +72,7 @@ jobs:
       - name: Commit version bump
         run: |
           git add -A
-          git commit -m "chore: version packages updated for v${{ steps.changesets.outputs.new_version }}"
+          git commit -m "Automated-action: version packages updated for v${{ steps.changesets.outputs.new_version }}"
           git push -u origin HEAD
 
       - name: Create Release Draft

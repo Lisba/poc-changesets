@@ -49,5 +49,5 @@ jobs:
       - name: Merge release branch to main
         run: |
           git checkout main
-          git merge --no-ff ${{ steps.branch.outputs.branch_name }} -m "chore: merge ${{ steps.branch.outputs.branch_name }} into main"
+          git merge --no-ff ${{ steps.branch.outputs.branch_name }} -m "Automated-action: merge ${{ steps.branch.outputs.branch_name }} into main"
           git push -u origin main
