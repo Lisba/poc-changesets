@@ -34,7 +34,7 @@ jobs:
       - name: Get next version from changesets
         id: changesets
         run: |
-          CHANGESET_OUTPUT=$(npx changeset status --verbose | sed 's/\x1b\[[0-9;]*m//g')
+          CHANGESET_OUTPUT=$(npx changeset status --verbose | sed 's/\x1b\[[0-9;]*m//g' | grep -v "\.changeset/.*\.md")
           
           # Verificar si hay cambios en patch, minor o major
           if ! echo "$CHANGESET_OUTPUT" | grep -q "Packages to be bumped at"; then
