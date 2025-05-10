@@ -1,0 +1,49 @@
+name: Test Changeset Context
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to create hotfix from'
+        required: true
+        default: 'v1.4.3'
+
+jobs:
+  test-changeset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Debug Git Context
+        run: |
+          echo "Current branch: $(git rev-parse --abbrev-ref HEAD)"
+          echo "Git log:"
+          git log --oneline --graph --all
+          echo "Git status:"
+          git status
+          echo "Git remote:"
+          git remote -v
+      
+      - name: Create hotfix branch
+        run: |
+          git checkout ${{ github.event.inputs.tag }}
+          git checkout -b hotfix/test-action
+          echo "test" > test.txt
+          git add test.txt
+          git commit -m "test commit"
+          npx changeset add --message "test changeset" --type patch
+          git add .
+          git commit -m "add changeset"
+          git push -u origin hotfix/test-action
+      
+      - name: Test changeset status
+        run: npx changeset status --verbose
