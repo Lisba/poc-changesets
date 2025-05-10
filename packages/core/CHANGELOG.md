@@ -1,5 +1,11 @@
 # @poc-changesets/core
 
+## 1.5.0
+
+### Minor Changes
+
+- f605141: Logs removed
+
 ## 1.4.3
 
 ### Patch Changes

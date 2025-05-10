@@ -4,12 +4,7 @@ export interface ButtonProps {
   styles?: React.CSSProperties;
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, onClick, styles }) => {
-  console.log('children: ', children);
-  console.log('styles: ', styles);
-  console.log('onClick: ', onClick);
-  console.log('featUno');
-  
+export const Button: React.FC<ButtonProps> = ({ children, onClick, styles }) => {  
   return (
     <button
       onClick={onClick}
