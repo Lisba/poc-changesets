@@ -1,5 +1,12 @@
 # @poc-changesets/package-b
 
+## 1.1.6
+
+### Patch Changes
+
+- Updated dependencies [fd1f191]
+  - @poc-changesets/core@1.4.4
+
 ## 1.1.5
 
 ### Patch Changes
