@@ -44,17 +44,17 @@ jobs:
           echo "Git remote:"
           git remote -v
       
-      - name: Create hotfix branch
-        run: |
-          git checkout ${{ github.event.inputs.tag }}
-          git checkout -b hotfix/test-action
-          echo "test" > test.txt
-          git add test.txt
-          git commit -m "test commit"
-          npx changeset add --message "test changeset" --type patch
-          git add .
-          git commit -m "add changeset"
-          git push -u origin hotfix/test-action
+      # - name: Create hotfix branch
+      #   run: |
+      #     git checkout ${{ github.event.inputs.tag }}
+      #     git checkout -b hotfix/test-action
+      #     echo "test" > test.txt
+      #     git add test.txt
+      #     git commit -m "test commit"
+      #     npx changeset add --message "test changeset" --type patch
+      #     git add .
+      #     git commit -m "add changeset"
+      #     git push -u origin hotfix/test-action
       
       - name: Test changeset status
         run: npx changeset status --verbose
