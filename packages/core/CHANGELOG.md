@@ -1,5 +1,11 @@
 # @poc-changesets/core
 
+## 1.4.5
+
+### Patch Changes
+
+- 5751784: Hotfix applied
+
 ## 1.4.4
 
 ### Patch Changes
