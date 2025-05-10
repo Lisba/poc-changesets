@@ -35,6 +35,8 @@ jobs:
         id: changesets
         run: |
           CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          
+          # If the current branch is not main, use the latest tag as the base reference.
           if [[ "$CURRENT_BRANCH" == "main" ]]; then
             CHANGESET_OUTPUT=$(npx changeset status --verbose | sed 's/\x1b\[[0-9;]*m//g' | sed 's/🦋  //g' | grep -v "\.changeset/.*\.md")
           else
@@ -54,7 +56,6 @@ jobs:
             exit 1
           fi
           
-          echo "Highest version proposed by changesets: $HIGHEST_VERSION"
           echo "new_version=$HIGHEST_VERSION" >> $GITHUB_OUTPUT
           {
             echo "changeset_output<<EOF"
