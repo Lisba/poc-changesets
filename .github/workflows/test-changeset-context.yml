@@ -8,10 +8,10 @@ on:
         default: 'v1.4.3'
   push:
     branches:
-      - 'hotfix/**'
+      - '**'
   pull_request:
     branches:
-      - 'hotfix/**'
+      - '**'
 
 jobs:
   test-changeset:
