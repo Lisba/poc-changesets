@@ -6,6 +6,9 @@ on:
         description: 'Tag to create hotfix from'
         required: true
         default: 'v1.4.3'
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
   test-changeset:
