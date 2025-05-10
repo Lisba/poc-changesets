@@ -1,5 +1,11 @@
 # @poc-changesets/core
 
+## 1.4.4
+
+### Patch Changes
+
+- fd1f191: Testing patch core
+
 ## 1.4.3
 
 ### Patch Changes

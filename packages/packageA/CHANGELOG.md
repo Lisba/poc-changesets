@@ -1,5 +1,17 @@
 # @poc-changesets/package-a
 
+## 1.2.0
+
+### Minor Changes
+
+- 80f567e: Just testing minor update
+
+### Patch Changes
+
+- 80f567e: just testing patch update
+- Updated dependencies [fd1f191]
+  - @poc-changesets/core@1.4.4
+
 ## 1.1.5
 
 ### Patch Changes
