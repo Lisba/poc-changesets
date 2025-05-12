@@ -1,5 +1,17 @@
 # @poc-changesets/package-b
 
+## 1.2.0
+
+### Minor Changes
+
+- 14e49ad: Testing purpose 4
+- d19a26c: Testing hotfix
+- 58fd4a8: change to minor
+
+### Patch Changes
+
+- 5f07051: Testing purpose 5
+
 ## 1.1.8
 
 ### Patch Changes
