@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({ children, onClick, styles }) => 
       onClick={onClick}
       style={{
         padding: '8px 16px',
-        backgroundColor: '#0070f3',
+        backgroundColor: '#007003',
         color: 'white',
         border: 'none',
         borderRadius: '4px',
