@@ -1,5 +1,11 @@
 # @poc-changesets/package-a
 
+## 1.3.2
+
+### Patch Changes
+
+- c3c786f: update patch
+
 ## 1.3.1
 
 ### Patch Changes
