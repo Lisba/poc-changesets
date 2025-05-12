@@ -2,4 +2,4 @@
 "@poc-changesets/package-b": minor
 ---
 
-Testing hotfix
+change to minor
