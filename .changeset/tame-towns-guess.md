@@ -1,5 +1,5 @@
 ---
-"@poc-changesets/core": minor
+"@poc-changesets/package-b": minor
 ---
 
 Testing purpose 4
