@@ -1,5 +1,11 @@
 # @poc-changesets/package-a
 
+## 1.3.0
+
+### Minor Changes
+
+- 53e0415: minor update
+
 ## 1.2.2
 
 ### Patch Changes
