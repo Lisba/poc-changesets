@@ -1,5 +1,11 @@
 # @poc-changesets/package-a
 
+## 1.3.5
+
+### Patch Changes
+
+- 969b03a: minor individual pattern test
+
 ## 1.3.4
 
 ### Patch Changes
