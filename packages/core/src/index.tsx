@@ -6,6 +6,7 @@ export interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({ children, onClick, styles }) => {
   console.log('featUno');
+  console.log('featDos');
   
   return (
     <button
