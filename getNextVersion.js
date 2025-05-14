@@ -18,7 +18,7 @@ function getChangesetOutput(currentBranch) {
     const baseRef = getLatestTag();
     command = `npx changeset status --verbose --since ${baseRef}`;
   }
-  return execSync(command).toString().replace(/\x1b\[[0-9;]*m/g, '').replace(/🦋  /g, '').replace(/\.changeset\/.*\.md/g, '').replace(/^info/gm, '### info');
+  return execSync(command).toString().replace(/\x1b\[[0-9;]*m/g, '').replace(/🦋  /g, '').replace(/\.changeset\/.*\.md/g, '').replace(/^info/gm, '### info').replace(/  - \n/g, '');
 }
 
 function extractCoreVersion(changesetOutput) {
@@ -57,7 +57,6 @@ function main() {
   let newVersion;
 
   if (!coreVersion) {
-    console.log('CORE_VERSION is empty, building TAG_SUFFIX');
     const tagSuffix = buildTagSuffix(changesetOutput);
     coreVersion = getCoreVersionFromPackageJson();
     newVersion = `v${coreVersion}${tagSuffix}`;
@@ -65,9 +64,13 @@ function main() {
     newVersion = `v${coreVersion}`;
   }
 
-  // Escribir las variables en el archivo de salida de GitHub Actions
-  fs.appendFileSync(process.env.GITHUB_OUTPUT, `new_version=${newVersion}\n`);
-  fs.appendFileSync(process.env.GITHUB_OUTPUT, `changeset_output<<EOF\n${changesetOutput}\nEOF\n`);
+  if (process.env.GITHUB_OUTPUT) {
+    fs.appendFileSync(process.env.GITHUB_OUTPUT, `new_version=${newVersion}\n`);
+    fs.appendFileSync(process.env.GITHUB_OUTPUT, `changeset_output<<EOF\n${changesetOutput}\nEOF\n`);
+  } else {
+    console.log(`new_version=${newVersion}`);
+    console.log(`\nchangeset_output<<EOF\n${changesetOutput}\nEOF`);
+  }
 }
 
 main();
