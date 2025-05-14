@@ -1,5 +1,15 @@
 # @poc-changesets/core
 
+## 1.6.0
+
+### Minor Changes
+
+- 31d31a3: New log added
+
+### Patch Changes
+
+- 899bc2a: Litte adjustment
+
 ## 1.5.0
 
 ### Minor Changes
