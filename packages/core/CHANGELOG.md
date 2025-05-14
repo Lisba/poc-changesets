@@ -1,5 +1,11 @@
 # @poc-changesets/core
 
+## 1.5.0
+
+### Minor Changes
+
+- b476bb2: button color default to green
+
 ## 1.4.6
 
 ### Patch Changes
