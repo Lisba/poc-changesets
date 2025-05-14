@@ -32,50 +32,9 @@ jobs:
 
       - name: Get next version from changesets
         id: changesets
-        run: |
-          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-          
-          # If the current branch is not main, use the latest tag as the base reference.
-          if [[ "$CURRENT_BRANCH" == "main" ]]; then
-            CHANGESET_OUTPUT=$(npx changeset status --verbose | sed 's/\x1b\[[0-9;]*m//g' | sed 's/🦋  //g' | grep -v "\.changeset/.*\.md")
-          else
-            BASE_REF=$(git describe --tags --abbrev=0)
-            CHANGESET_OUTPUT=$(npx changeset status --verbose --since $BASE_REF | sed 's/\x1b\[[0-9;]*m//g' | sed 's/🦋  //g' | grep -v "\.changeset/.*\.md")
-          fi
-          
-          if ! echo "$CHANGESET_OUTPUT" | grep -q "Packages to be bumped at"; then
-            echo "No pending changesets to generate a new version"
-            exit 1
-          fi
-          
-          CORE_VERSION=$(echo "$CHANGESET_OUTPUT" | grep "@poc-changesets/core" | grep -o "[0-9]\+\.[0-9]\+\.[0-9]\+" | head -n1)
-              
-          if [ -z "$CORE_VERSION" ]; then
-            echo "CORE_VERSION is empty, building TAG_SUFFIX"
-            TAG_SUFFIX=""
-            for PKG in package-a package-b; do
-              echo "Checking package: $PKG"
-              PKG_VERSION=$(echo "$CHANGESET_OUTPUT" | grep "@poc-changesets/$PKG" | awk '{print $NF}')
-              echo "PKG_VERSION for $PKG: $PKG_VERSION"
-              if [ ! -z "$PKG_VERSION" ]; then
-                PKG_LETTER=${PKG: -1}  # Gets 'a' or 'b'
-                TAG_SUFFIX="${TAG_SUFFIX}-${PKG_LETTER}${PKG_VERSION}"
-                echo "Current TAG_SUFFIX: $TAG_SUFFIX"
-              fi
-            done
-            
-            CORE_VERSION=$(node -p "require('./packages/core/package.json').version")
-            NEW_VERSION="v${CORE_VERSION}${TAG_SUFFIX}"
-          else
-            NEW_VERSION="v${CORE_VERSION}"
-          fi
-          
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          {
-            echo "changeset_output<<EOF"
-            echo "$CHANGESET_OUTPUT"
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+        run: node getNextVersion.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release branch
         run: |
