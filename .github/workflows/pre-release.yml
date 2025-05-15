@@ -32,7 +32,7 @@ jobs:
 
       - name: Get next version from changesets
         id: changesets
-        run: node getNextVersion.js
+        run: node scripts/getNextVersion.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
